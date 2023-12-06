@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Dashboard</title>
+    <!-- Include necessary styles/scripts, e.g., Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Container for the first vaccine drop down menu -->
+    <div>
+        <!-- <label for="productSelect">Select a Vaccine Product:</label>
+        <select id="productSelect" onchange="updateCompany()"> -->
+            
+        </select>
+    </div>
+    
+    
+    
+
+    <!-- Container for the second chart -->
+    <div>
+        <canvas id="vaccinationRateChart" width="800" height="400"></canvas>
+    </div>
+
+    <!-- Container for the third chart -->
+    <div>
+        <canvas id="chart3" width="400" height="200"></canvas>
+    </div>
+
+    <!-- Include your JavaScript file -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+</body>
+</html>
