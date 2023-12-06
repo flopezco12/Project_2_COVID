@@ -17,11 +17,17 @@
     </div>
     
     
-    
+    <!-- Include your JavaScript file -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     <!-- Container for the second chart -->
     <div>
-        <canvas id="vaccinationRateChart" width="800" height="400"></canvas>
+        <canvas id="vaccinationRateChart" width="800" height="800"></canvas>
+        <div id="bar"></div>
+
     </div>
 
     <!-- Container for the third chart -->
@@ -29,9 +35,6 @@
         <canvas id="chart3" width="400" height="200"></canvas>
     </div>
 
-    <!-- Include your JavaScript file -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+   
 </body>
 </html>
