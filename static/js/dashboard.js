@@ -1,49 +1,29 @@
 //VaccinationMetaData Visualization
 
-// Fetch data from the /get_data route
+// Get the data endpoint
+const data_url = "http://127.0.0.1:5000/get_data";
 
-fetch('http://127.0.0.1:5000/get_data')
-    .then(response => {  
-        return response.json()})
-    .then(data => {
-        console.log(data)
-        // Process vaccination data
-        //const vaccinationdata = data.vaccinationdata;
-        //const labels = vaccinationdata.map(item => item.COUNTRY);
-        //const values = vaccinationdata.map(item => item.TOTAL_VACCINATIONS_PER100);
-        //console.log(data.VaccinationData[Object.keys(data.VaccinationData)])  
+// Fetch the JSON data and console log it
+d3.json(data_url).then(function(data) {
+    // Assuming data is an object with a property 'VaccinationData'
+    let countries = data.VaccinationData.map(item => item[0]);
+    let vaccination_rates = data.VaccinationData.map(item => item[4]);
+
+    console.log(data, countries, vaccination_rates);
+});
+  
+// Display the default plot 
+function init() {
+    data = [{
+        values: vaccination_rates,
+        labels: countries,
+        type: "bar"}];
+
+        let layout = {
+            height: 600,
+            width: 800
+        };
     
-        let countries = data.VaccinationData.map( item => item[0])
-        let vaccination_rates = data.VaccinationData.map( item => item[4])
-        console.log(countries, vaccination_rates)
+    Plotly.newPlot("bar", data, layout);
 
-        // var countries = data.VaccinationData[function() {for (row in data.VaccinationData) return row[0]}]
-        // console.log(countries)
-
-        // Create a bar chart using Chart.js
-        const ctx = document.getElementById('vaccinationRateChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Vaccination Rate per 100 People',
-                    data: values,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-        })
-    .catch(error => console.error('Error fetching data:', error));
-
-
-   
+};
