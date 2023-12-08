@@ -34,9 +34,11 @@
     <!-- Include your JavaScript file -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
+
 
 
     <!-- Container for the second chart -->
@@ -44,6 +46,22 @@
         <div class="col-md-5"></div>
         <div id="bubble"></div>
     </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    
+    <div id="vaccination-table"></div>
+    <script>
+        var table = new Tabulator("#vaccination-table", {
+             data:tabledata,
+             layout:"fitcolumns",
+                columns: [
+                    {title:"Product Name", field:"PRODUCT_NAME"},
+                    {title: "Company Name", field:"Company_name"}
+                ]
+            });
+    </script>
+
+    
 
     <div id="nodeDiv">
         <svg id="node"></svg>
