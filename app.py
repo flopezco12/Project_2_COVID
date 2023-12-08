@@ -8,7 +8,10 @@ app = Flask(__name__)
 def welcome():
     """Welcome to our Covid Tracker"""
     return (    f"Available Routes:<br/>"
+                f"/about<br/>"
                 f"/dashboard<br/>"
+                
+                f"Welcome to group 5's project three. <br/> To learn about our purpose please use /about. <br/> Please use /dashboard to go to the covid tracker"
 
     )
 
@@ -37,7 +40,15 @@ def get_data():
     return jsonify({'DailyCasesDeath': data_DailyCasesDeath, 'VaccinationData':  data_VaccinationData, 'VaccinationMetaData': data_VaccinationMetaData})
 
 
-        
+#about page 
+@app.route('/about')
+def about():
+    return (f"We are group five: Anna Brabender, Audrey Nkrumah, Fernando Lopez, and Saiyara Islam.<br/>"
+            
+            f"The purpose of this dashboard is to be able to look at vaccination rates around the world as well as cumulative deaths and cases around the world.<br/>"
+            f"Our data comes from three datasources, they can be found at https://covid19.who.int/data <br/>"
+            f"Please note that the dashboard page does take a few second to load the visualization <br/>"
+            )  
 
 # Define a route to render the HTML dashboard
 @app.route('/dashboard')
