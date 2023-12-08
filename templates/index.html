@@ -6,12 +6,26 @@
     <title>Interactive Dashboard</title>
     <!-- Include necessary styles/scripts, e.g., Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
+
+    
 </head>
 <body>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12 jumbotron text-center">
+            <h1>Covid Dashboard</h1>
+            <p>Use the interactive charts below to explore the dataset</p>
+          </div>
+        </div>
     <!-- Container for the first vaccine drop down menu -->
+    <div id="dropdown-container"></div>
+    
+    <div class="col-md-5"></div>
+    <div id="bar"></div>
+    
     <div>
-        <!-- <label for="productSelect">Select a Vaccine Product:</label>
-        <select id="productSelect" onchange="updateCompany()"> -->
+       
             
         </select>
     </div>
@@ -23,18 +37,12 @@
     <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
+
+
     <!-- Container for the second chart -->
     <div>
-        <div id="dropdown-container"></div>
-        <canvas id="vaccinationRateChart" width="1000" height="1200"></canvas>
-        <div id="bar"></div>
-        
-
-    </div>
-
-    <!-- Container for the third chart -->
-    <div>
-        <canvas id="chart3" width="400" height="200"></canvas>
+        <div class="col-md-5"></div>
+        <div id="bubble"></div>
     </div>
 
    
