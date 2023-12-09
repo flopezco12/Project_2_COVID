@@ -235,12 +235,32 @@ d3.json(data_url).then(function (data) {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 19,
-        pane: 'shadowPane' // always display on top
+        pane: 'shadowPane' 
     }).addTo(map);
 
-    // Your data processing and manipulation here
+    unction addCountryMarkers(data) {
+    L.geoJSON(data, {
+        style: function (feature) {
+            var countryName = feature.countries;
+            var countryCovid = cumulative_cases[countryName]; 
+            var fillColor = chooseColor(countryCovid); 
+            
+            return {
+                fillColor: fillColor,
+                color: 'black',
+                weight: 1,
+                fillOpacity: 0.7
+            };
+        },
     
-    // Adding data here soon
+        onEachFeature: function (feature, layer) {
+            var countryName = feature.countries; 
+            var countryCovid = cumulative_cases[countryName]; 
+            
+            layer.bindPopup('Country: ' + countryName + '<br>Cases: ' + countryCovid);
+        }
+    }).addTo(map);
+}
     
     // Assuming data is formatted properly for heat layer
     var heat = L.heatLayer(Data, {
