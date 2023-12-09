@@ -193,41 +193,61 @@ var tabledata = [
 d3.json(data_url).then(function (data) {
     console.log(data);
     createFeatures(data.features);
-    });
-    
-    let time = data.DailyCasesDeath.map (item => item[0]);
+
+    let time = data.DailyCasesDeath.map(item => item[0]);
     let countries = data.DailyCasesDeath.map(item => item[1]);
     let cumulative_cases = data.DailyCasesDeath.map(item => item[3]);
     let cumulative_deaths = data.DailyCasesDeath.map(item => item[5]);
 
     function markerSize(cumulative_cases) {
         return cumulative_cases;
-    };
-    
-    function chooseColor(cumulative_cases){
-    if (cumulative_cases < 200000) return "blue";
-    else if (cumulative_cases < 500000) return "cyan";
-    else if (cumulative_cases < 1000000) return "lime";
-    else if (cumulative_cases < 50000000) return "yellow";
-    else if (cumulative_cases < 100000000) return "orangered";
-    else return "red";
+    }
+
+    function chooseColor(cumulative_cases) {
+        if (cumulative_cases < 200000) return "blue";
+        else if (cumulative_cases < 500000) return "cyan";
+        else if (cumulative_cases < 1000000) return "lime";
+        else if (cumulative_cases < 50000000) return "yellow";
+        else if (cumulative_cases < 100000000) return "orangered";
+        else return "red";
     }
 
     var map = L.map('map', {
-        zoomControl: false, // Add zoom control separately below
-        center: [51.5, -0.1], // Initial map center
-        zoom: 10, // Initial zoom level
-        attributionControl: false, // Instead of default attribution, we add custom at the bottom of script
+        zoomControl: false,
+        center: [51.5, -0.1],
+        zoom: 10,
+        attributionControl: false,
         scrollWheelZoom: false
-    }
+    });
 
-// Add zoom in/out buttons to the top-right
-    L.control.zoom({position: 'topright'}).addTo(map)
+    // Add zoom in/out buttons to the top-right
+    L.control.zoom({ position: 'topright' }).addTo(map);
 
     // Add baselayer
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 19
-    }).addTo(map)
+    }).addTo(map);
+
+    // Add geographical labels only layer on top of baselayer
+    var labels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19,
+        pane: 'shadowPane' // always display on top
+    }).addTo(map);
+
+    // Your data processing and manipulation here
+    
+    // Adding data here soon
+    
+    // Assuming data is formatted properly for heat layer
+    var heat = L.heatLayer(Data, {
+        radius: 25
+    });
+
+    // Add the heatlayer to the map
+    heat.addTo(map);
+});
 
