@@ -25,6 +25,7 @@ function init() {
             dropdown.onchange = function() {
                 updateChart(this.value);
                 updateChart2(this.value);
+                updateLineChart(this.value);
             };
 
             // Add an option for all countries
@@ -148,128 +149,122 @@ function updateChart2(selectedCountry) {
         }
     });
 }
+// Function to update the line chart based on the selected country
+function updateLineChart(selectedCountry) {
+    d3.json(data_url).then(function (data) {
+        const dailyCasesData = data.DailyCasesDeath;
 
+        // Filter data for the selected country
+        const countryData = dailyCasesData.filter(item => item[1] === selectedCountry);
 
+        // Call the createLineChart function with the filtered data
+        createLineChart(countryData);
+    });
+}
+
+function createLineChart(dailyCasesData) {
+    const countries = Array.from(new Set(dailyCasesData.map(item => item[1])));
+    const dates = Array.from(new Set(dailyCasesData.map(item => item[0])));
+
+    const countryData = countries.map(country => ({
+        label: country,
+        data: dailyCasesData
+            .filter(item => item[1] === country)
+            .map(item => item[2]),
+        fill: false,
+        yAxisID: 'y-axis-new-cases',
+    }));
+
+    const cumulativeData = countries.map(country => ({
+        label: `${country} (Cumulative)`,
+        data: dailyCasesData
+            .filter(item => item[1] === country)
+            .map(item => item[3]),
+        fill: false,
+        yAxisID: 'y-axis-cumulative-cases',
+    }));
+
+    const lineChartData = {
+        labels: dates,
+        datasets: [...countryData, ...cumulativeData],
+    };
+
+    const ctx = document.getElementById('lineChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: lineChartData,
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            stacked: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'COVID-19 New and Cumulative Cases',
+                },
+            },
+            scales: {
+                xAxis: {
+                    type: 'linear', // Assuming your dates are numeric, change this if they are not
+                    position: 'bottom',
+                },
+                yAxis: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    id: 'y-axis-new-cases',
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    id: 'y-axis-cumulative-cases',
+                },
+            },
+        },
+    });
+}
 // Call the init function to generate the initial plot
 init();
 
 
-//Table using tabulator (a js library)
-// Define  data
+// //Table using tabulator (a js library)
+// // Define  data
 
-var tabledata = [
-    {  PRODUCT_NAME: "AZD1222", Company_name: "AstraZeneca" },
-    { PRODUCT_NAME: "Ad26.COV 2-S", Company_name: "Janssen Pharmaceuticals" },
-    { PRODUCT_NAME: "BBIBP-CorV", Company_name: "Beijing Bio-Institute Biological Products (CNBG)" },
-    {  PRODUCT_NAME: "CIGB-66", Company_name: "Center for Genetic Engineering and Biotechnology" },
-    {  PRODUCT_NAME: "Comirnaty", Company_name: "Pfizer BioNTech" },
-    {  PRODUCT_NAME: "Convidecia", Company_name: "CanSino Biologicals" },
-    {  PRODUCT_NAME: "Corbevax", Company_name: "Biological E" },
-    {  PRODUCT_NAME: "Coronavac", Company_name: "Sinovac" },
-    {  PRODUCT_NAME: "Covaxin", Company_name: "Bharat Biotech" },
-    {  PRODUCT_NAME: "Covi-Vac", Company_name: "Chumakov" },
-    {PRODUCT_NAME: "Covidful", Company_name: "Insitute of Medical Biology" },
-    {  PRODUCT_NAME: "Covishield", Company_name: "Serum Institute of India" },
-    {  PRODUCT_NAME: "EpiVacCorona", Company_name: "State Research Center of Virology & Biotechnology" },
-    {  PRODUCT_NAME: "Gam-Covid-Vac", Company_name: "Gamaleya Research Institute" },
-    {PRODUCT_NAME: "Inactivated SARS-CoV-2 vaccine", Company_name: "Wuhan Institute of Biological Products (CNBG)" },
-    {  PRODUCT_NAME: "LV-SMENP-DC", Company_name: "Shenzhen GenoImmune Medical Institute" },
-    { PRODUCT_NAME: "NUVAXOVID", Company_name: "Novavax" },
-    {  PRODUCT_NAME: "QazVac", Company_name: "Research Institute for Biological Safety Problems" },
-    { PRODUCT_NAME: "Soberana Plus", Company_name: "Instituto Finlay de Vacunas" },
-    {  PRODUCT_NAME: "Soberana-02", Company_name: "Instituto Finlay de Vacunas" },
-    {  PRODUCT_NAME: "Spikevax", Company_name: "Moderna" },
-    { PRODUCT_NAME: "Sputnik-Light", Company_name: "Gamaleya Research Institute" },
-    { PRODUCT_NAME: "VLA2001", Company_name: "Valneva" },
-    {  PRODUCT_NAME: "Vaxzevria", Company_name: "AstraZeneca" },
-    {  PRODUCT_NAME: "Zifivax", Company_name: "Anhui Zhifei Longcom Biopharmaceutical" },
-    { PRODUCT_NAME: "ZyCov-D", Company_name: "Zydus Cadila" },
-    {  PRODUCT_NAME: "mRNA-1273", Company_name: "Moderna" },
-];
+// var tabledata = [
+//     {  PRODUCT_NAME: "AZD1222", Company_name: "AstraZeneca" },
+//     { PRODUCT_NAME: "Ad26.COV 2-S", Company_name: "Janssen Pharmaceuticals" },
+//     { PRODUCT_NAME: "BBIBP-CorV", Company_name: "Beijing Bio-Institute Biological Products (CNBG)" },
+//     {  PRODUCT_NAME: "CIGB-66", Company_name: "Center for Genetic Engineering and Biotechnology" },
+//     {  PRODUCT_NAME: "Comirnaty", Company_name: "Pfizer BioNTech" },
+//     {  PRODUCT_NAME: "Convidecia", Company_name: "CanSino Biologicals" },
+//     {  PRODUCT_NAME: "Corbevax", Company_name: "Biological E" },
+//     {  PRODUCT_NAME: "Coronavac", Company_name: "Sinovac" },
+//     {  PRODUCT_NAME: "Covaxin", Company_name: "Bharat Biotech" },
+//     {  PRODUCT_NAME: "Covi-Vac", Company_name: "Chumakov" },
+//     {PRODUCT_NAME: "Covidful", Company_name: "Insitute of Medical Biology" },
+//     {  PRODUCT_NAME: "Covishield", Company_name: "Serum Institute of India" },
+//     {  PRODUCT_NAME: "EpiVacCorona", Company_name: "State Research Center of Virology & Biotechnology" },
+//     {  PRODUCT_NAME: "Gam-Covid-Vac", Company_name: "Gamaleya Research Institute" },
+//     {PRODUCT_NAME: "Inactivated SARS-CoV-2 vaccine", Company_name: "Wuhan Institute of Biological Products (CNBG)" },
+//     {  PRODUCT_NAME: "LV-SMENP-DC", Company_name: "Shenzhen GenoImmune Medical Institute" },
+//     { PRODUCT_NAME: "NUVAXOVID", Company_name: "Novavax" },
+//     {  PRODUCT_NAME: "QazVac", Company_name: "Research Institute for Biological Safety Problems" },
+//     { PRODUCT_NAME: "Soberana Plus", Company_name: "Instituto Finlay de Vacunas" },
+//     {  PRODUCT_NAME: "Soberana-02", Company_name: "Instituto Finlay de Vacunas" },
+//     {  PRODUCT_NAME: "Spikevax", Company_name: "Moderna" },
+//     { PRODUCT_NAME: "Sputnik-Light", Company_name: "Gamaleya Research Institute" },
+//     { PRODUCT_NAME: "VLA2001", Company_name: "Valneva" },
+//     {  PRODUCT_NAME: "Vaxzevria", Company_name: "AstraZeneca" },
+//     {  PRODUCT_NAME: "Zifivax", Company_name: "Anhui Zhifei Longcom Biopharmaceutical" },
+//     { PRODUCT_NAME: "ZyCov-D", Company_name: "Zydus Cadila" },
+//     {  PRODUCT_NAME: "mRNA-1273", Company_name: "Moderna" },
+// ];
 
 
 
-// Function to create the heatmap
-function heatmap(selectedCountry) {
-d3.json(data_url).then(function (data) {
-    console.log(data);
-    createFeatures(data.features);
 
-    let time = data.DailyCasesDeath.map(item => item[0]);
-    let countries = data.DailyCasesDeath.map(item => item[1]);
-    let cumulative_cases = data.DailyCasesDeath.map(item => item[3]);
-    let cumulative_deaths = data.DailyCasesDeath.map(item => item[5]);
-
-    function markerSize(cumulative_cases) {
-        return cumulative_cases;
-    }
-
-    function chooseColor(cumulative_cases) {
-        if (cumulative_cases < 200000) return "blue";
-        else if (cumulative_cases < 500000) return "cyan";
-        else if (cumulative_cases < 1000000) return "lime";
-        else if (cumulative_cases < 50000000) return "yellow";
-        else if (cumulative_cases < 100000000) return "orangered";
-        else return "red";
-    }
-
-    var map = L.map('map', {
-        zoomControl: false,
-        center: [51.5, -0.1],
-        zoom: 10,
-        attributionControl: false,
-        scrollWheelZoom: false
-    });
-
-    // Add zoom in/out buttons to the top-right
-    L.control.zoom({ position: 'topright' }).addTo(map);
-
-    // Add baselayer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
-    }).addTo(map);
-
-    // Add geographical labels only layer on top of baselayer
-    var labels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19,
-        pane: 'shadowPane' 
-    }).addTo(map);
-
-    unction addCountryMarkers(data) {
-    L.geoJSON(data, {
-        style: function (feature) {
-            var countryName = feature.countries;
-            var countryCovid = cumulative_cases[countryName]; 
-            var fillColor = chooseColor(countryCovid); 
-            
-            return {
-                fillColor: fillColor,
-                color: 'black',
-                weight: 1,
-                fillOpacity: 0.7
-            };
-        },
-    
-        onEachFeature: function (feature, layer) {
-            var countryName = feature.countries; 
-            var countryCovid = cumulative_cases[countryName]; 
-            
-            layer.bindPopup('Country: ' + countryName + '<br>Cases: ' + countryCovid);
-        }
-    }).addTo(map);
-}
-    
-    // Assuming data is formatted properly for heat layer
-    var heat = L.heatLayer(Data, {
-        radius: 25
-    });
-
-    // Add the heatlayer to the map
-    heat.addTo(map);
-});
-}
 

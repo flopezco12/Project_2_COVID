@@ -37,6 +37,8 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
     <script src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
 
 
@@ -49,7 +51,7 @@
 
     <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
     
-    <div id="vaccination-table"></div>
+    <!-- <div id="vaccination-table"></div>
     <script>
         var table = new Tabulator("#vaccination-table", {
              data:tabledata,
@@ -59,14 +61,11 @@
                     {title: "Company Name", field:"Company_name"}
                 ]
             });
-    </script>
+    </script> -->
+
+<canvas id="lineChart" width="800" height="400"></canvas>
 
     
-
-    <div id="nodeDiv">
-        <svg id="node"></svg>
-    </div>
-
    
 </body>
 </html>
