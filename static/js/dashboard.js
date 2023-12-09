@@ -190,6 +190,7 @@ var tabledata = [
 
 
 // Function to create the heatmap
+function heatmap(selectedCountry) {
 d3.json(data_url).then(function (data) {
     console.log(data);
     createFeatures(data.features);
@@ -270,4 +271,5 @@ d3.json(data_url).then(function (data) {
     // Add the heatlayer to the map
     heat.addTo(map);
 });
+}
 
