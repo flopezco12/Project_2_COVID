@@ -6,10 +6,13 @@
 // Get the data endpoint
 const data_url = "http://127.0.0.1:5000/get_data";
 
+
+
 // Fetch the JSON data and console log it
 function init() {
     d3.json(data_url).then(function (data) {
         
+       
         let countries = data.VaccinationData.map(item => item[0]);
         let vaccination_rates = data.VaccinationData.map(item => item[4]);
         let seconddose = data.VaccinationData.map(item => item[5]);
@@ -149,86 +152,85 @@ function updateChart2(selectedCountry) {
         }
     });
 }
-// Function to update the line chart based on the selected country
-function updateLineChart(selectedCountry) {
-    d3.json(data_url).then(function (data) {
-        const dailyCasesData = data.DailyCasesDeath;
 
-        // Filter data for the selected country
-        const countryData = dailyCasesData.filter(item => item[1] === selectedCountry);
 
-        // Call the createLineChart function with the filtered data
-        createLineChart(countryData);
-    });
-}
-
-function createLineChart(dailyCasesData) {
-    const countries = Array.from(new Set(dailyCasesData.map(item => item[1])));
-    const dates = Array.from(new Set(dailyCasesData.map(item => item[0])));
+// Function to update the line chart with new data
+function updateLineChartWithData(newData) {
+    const countries = Array.from(new Set(newData.map(item => item[1])));
+    const dates = Array.from(new Set(newData.map(item => item[0])));
 
     const countryData = countries.map(country => ({
         label: country,
-        data: dailyCasesData
+        data: newData
             .filter(item => item[1] === country)
             .map(item => item[2]),
-        fill: false,
-        yAxisID: 'y-axis-new-cases',
     }));
 
     const cumulativeData = countries.map(country => ({
         label: `${country} (Cumulative)`,
-        data: dailyCasesData
+        data: newData
             .filter(item => item[1] === country)
             .map(item => item[3]),
-        fill: false,
-        yAxisID: 'y-axis-cumulative-cases',
     }));
 
-    const lineChartData = {
-        labels: dates,
-        datasets: [...countryData, ...cumulativeData],
-    };
-
-    const ctx = document.getElementById('lineChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: lineChartData,
-        options: {
-            responsive: true,
-            interaction: {
-                mode: 'index',
-                intersect: false,
+    // Assuming you have a global variable for the chart instance
+    if (lineChart) {
+        lineChart.data.labels = dates;
+        lineChart.data.datasets = [...countryData, ...cumulativeData];
+        lineChart.update(); // Update the chart with new data
+    } else {
+        // If the chart doesn't exist, create it
+        const ctx = document.getElementById('lineChart').getContext('2d');
+        lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [...countryData, ...cumulativeData],
             },
-            stacked: false,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'COVID-19 New and Cumulative Cases',
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                stacked: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'COVID-19 New and Cumulative Cases',
+                    },
+                },
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            parser: 'YYYY-MM-DD',
+                            tooltipFormat: 'll',
+                        },
+                        position: 'bottom',
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        id: 'y-axis-new-cases',
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        id: 'y-axis-cumulative-cases',
+                    },
                 },
             },
-            scales: {
-                xAxis: {
-                    type: 'linear', // Assuming your dates are numeric, change this if they are not
-                    position: 'bottom',
-                },
-                yAxis: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    id: 'y-axis-new-cases',
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    id: 'y-axis-cumulative-cases',
-                },
-            },
-        },
-    });
+        });
+    }
 }
+
 // Call the init function to generate the initial plot
 init();
+
+
 
 
 // //Table using tabulator (a js library)
