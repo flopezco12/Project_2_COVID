@@ -1,26 +1,24 @@
 # Project_3_COVID
 ## Overview
-This Java project aims to analyze COVID-19 data from the World Health Organization (WHO) website for the years 2020 to 2023. The project fetches and processes data on COVID-19 cases, deaths, and recoveries for all countries worldwide.
+This project was completed by group  members, Audrey Nkrumah, Anna Brabender, Fernando Lopez, and Saiyara Islam. It aims to analyze COVID-19 data from the World Health Organization (WHO) website for the years 2020 to 2023 on a daily basis. The project fetches and processes data on COVID-19 cases, deaths, and vaccinations for all countries worldwide.
 
 ## Data Source
-The data used in this project is obtained from the World Health Organization (WHO) website, providing comprehensive and up-to-date information on the global impact of the COVID-19 pandemic.
+The data used in this project is obtained from the World Health Organization (WHO) website, 'https://covid19.who.int/data',  providing comprehensive and up-to-date information on the global impact of the COVID-19 pandemic.
 
 ## Features
-- Fetches and parses COVID-19 data for all countries.
+- Fetches and parses COVID-19 data for all countries using API.
 - Analyzes trends and patterns in the spread of the virus.
-- Provides statistics on cases, deaths, and recoveries.
+- Provides statistics on cases, deaths, and vaccinations.
 - Visualizes data through charts and graphs.
 
 ## Technologies Used
 - Java
-- External libraries for data parsing and visualization (e.g., Apache Commons CSV, JFreeChart)
+- Python
+- External libraries for data parsing and visualization (e.g., Apache Commons CSV)
 
-## Getting Started
-1. Clone the repository to your local machine.
-   ```bash
-   git clone https://github.com/your-username/covid19-java-project.git
-Open the project in your preferred Java IDE.
-
+## Getting Started Steps
+- obtained the data in CSV formatt
+- created a database using the data in sql using
 Run the main application file to fetch and analyze the COVID-19 data.
 
 Usage
