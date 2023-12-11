@@ -16,6 +16,8 @@ function init() {
         let countries = data.VaccinationData.map(item => item[0]);
         let vaccination_rates = data.VaccinationData.map(item => item[4]);
         let seconddose = data.VaccinationData.map(item => item[5]);
+        
+        const cumulativecases = data.DailyCasesDeath.map(item => item[3]);
 
         console.log(data, countries, vaccination_rates);
 
@@ -28,7 +30,7 @@ function init() {
             dropdown.onchange = function() {
                 updateChart(this.value);
                 updateChart2(this.value);
-                updateLineChart(this.value);
+                updateChart3(this.value);
             };
 
             // Add an option for all countries
@@ -88,8 +90,27 @@ function init() {
             yaxis: { title: "Second Dose per 100" },
         };
 
-        // Update or create the initial bar chart
+        // Update or create the initial bubbble chart
         Plotly.newPlot("bubble", [tracebar2], layoutbar2);
+
+        //Create intial cases bar chart with all countries 
+        const tracebar3 = {
+            x: countries,
+            y: cumulativecases,
+            text: cumulativecases,
+            type: "bar",
+            marker: {color:'DarkCyan'}
+        };
+
+        const layoutbar3 = {
+            title: `Cumulative COVID-19 cases`,
+            xaxis: { title: "Days" , tickangle: -45},
+            yaxis: { title: "Cumulative Cases" },
+        };
+
+        // Update or create the initial line chart
+        Plotly.newPlot("bar2", [tracebar3], layoutbar3);
+
 
     });
 }
@@ -153,79 +174,34 @@ function updateChart2(selectedCountry) {
     });
 }
 
-
-// Function to update the line chart with new data
-function updateLineChartWithData(newData) {
-    const countries = Array.from(new Set(newData.map(item => item[1])));
-    const dates = Array.from(new Set(newData.map(item => item[0])));
-
-    const countryData = countries.map(country => ({
-        label: country,
-        data: newData
-            .filter(item => item[1] === country)
-            .map(item => item[2]),
-    }));
-
-    const cumulativeData = countries.map(country => ({
-        label: `${country} (Cumulative)`,
-        data: newData
-            .filter(item => item[1] === country)
-            .map(item => item[3]),
-    }));
-
-    // Assuming you have a global variable for the chart instance
-    if (lineChart) {
-        lineChart.data.labels = dates;
-        lineChart.data.datasets = [...countryData, ...cumulativeData];
-        lineChart.update(); // Update the chart with new data
-    } else {
-        // If the chart doesn't exist, create it
-        const ctx = document.getElementById('lineChart').getContext('2d');
-        lineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: dates,
-                datasets: [...countryData, ...cumulativeData],
-            },
-            options: {
-                responsive: true,
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                stacked: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'COVID-19 New and Cumulative Cases',
-                    },
-                },
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            parser: 'YYYY-MM-DD',
-                            tooltipFormat: 'll',
-                        },
-                        position: 'bottom',
-                    },
-                    y: {
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        id: 'y-axis-new-cases',
-                    },
-                    y1: {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        id: 'y-axis-cumulative-cases',
-                    },
-                },
-            },
-        });
-    }
+// Function to update the bar2 chart based on the selected country
+function updateChart3(selectedCountry) {
+    d3.json(data_url).then(function (data) {
+        
+        let countries = data.VaccinationData.map(item => item[0]);
+        let vaccination_rates = data.VaccinationData.map(item => item[5]);
+        let seconddose = data.VaccinationData.map(item => item[5]);
+        let cases = data.DailyCasesDeath.map(item=> item[3]);
+        
+        if (selectedCountry === 'all') {
+            // Show all countries
+            Plotly.update("line", {x: [countries], y: [cases]});
+        } else {
+            console.log(selectedCountry);
+            // Show only the selected country
+            const selectedIndex = countries.indexOf(selectedCountry);
+            const traceUpdate3 = {
+                x: [[countries[selectedIndex]]],
+                y: [[seconddose[selectedIndex]]],
+            };
+            
+            
+            Plotly.update("bar2", traceUpdate3);
+        }
+    });
 }
+
+
 
 // Call the init function to generate the initial plot
 init();
@@ -233,38 +209,7 @@ init();
 
 
 
-// //Table using tabulator (a js library)
-// // Define  data
 
-// var tabledata = [
-//     {  PRODUCT_NAME: "AZD1222", Company_name: "AstraZeneca" },
-//     { PRODUCT_NAME: "Ad26.COV 2-S", Company_name: "Janssen Pharmaceuticals" },
-//     { PRODUCT_NAME: "BBIBP-CorV", Company_name: "Beijing Bio-Institute Biological Products (CNBG)" },
-//     {  PRODUCT_NAME: "CIGB-66", Company_name: "Center for Genetic Engineering and Biotechnology" },
-//     {  PRODUCT_NAME: "Comirnaty", Company_name: "Pfizer BioNTech" },
-//     {  PRODUCT_NAME: "Convidecia", Company_name: "CanSino Biologicals" },
-//     {  PRODUCT_NAME: "Corbevax", Company_name: "Biological E" },
-//     {  PRODUCT_NAME: "Coronavac", Company_name: "Sinovac" },
-//     {  PRODUCT_NAME: "Covaxin", Company_name: "Bharat Biotech" },
-//     {  PRODUCT_NAME: "Covi-Vac", Company_name: "Chumakov" },
-//     {PRODUCT_NAME: "Covidful", Company_name: "Insitute of Medical Biology" },
-//     {  PRODUCT_NAME: "Covishield", Company_name: "Serum Institute of India" },
-//     {  PRODUCT_NAME: "EpiVacCorona", Company_name: "State Research Center of Virology & Biotechnology" },
-//     {  PRODUCT_NAME: "Gam-Covid-Vac", Company_name: "Gamaleya Research Institute" },
-//     {PRODUCT_NAME: "Inactivated SARS-CoV-2 vaccine", Company_name: "Wuhan Institute of Biological Products (CNBG)" },
-//     {  PRODUCT_NAME: "LV-SMENP-DC", Company_name: "Shenzhen GenoImmune Medical Institute" },
-//     { PRODUCT_NAME: "NUVAXOVID", Company_name: "Novavax" },
-//     {  PRODUCT_NAME: "QazVac", Company_name: "Research Institute for Biological Safety Problems" },
-//     { PRODUCT_NAME: "Soberana Plus", Company_name: "Instituto Finlay de Vacunas" },
-//     {  PRODUCT_NAME: "Soberana-02", Company_name: "Instituto Finlay de Vacunas" },
-//     {  PRODUCT_NAME: "Spikevax", Company_name: "Moderna" },
-//     { PRODUCT_NAME: "Sputnik-Light", Company_name: "Gamaleya Research Institute" },
-//     { PRODUCT_NAME: "VLA2001", Company_name: "Valneva" },
-//     {  PRODUCT_NAME: "Vaxzevria", Company_name: "AstraZeneca" },
-//     {  PRODUCT_NAME: "Zifivax", Company_name: "Anhui Zhifei Longcom Biopharmaceutical" },
-//     { PRODUCT_NAME: "ZyCov-D", Company_name: "Zydus Cadila" },
-//     {  PRODUCT_NAME: "mRNA-1273", Company_name: "Moderna" },
-// ];
 
 
 
