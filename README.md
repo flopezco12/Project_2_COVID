@@ -12,6 +12,7 @@ The data used in this project is obtained from the World Health Organization (WH
 - Visualizes data through charts and graphs.
 
 ## Technologies  and Languagaes Used
+- ETL
 - JavaScripts
 - Python
 - SQL
@@ -20,11 +21,12 @@ The data used in this project is obtained from the World Health Organization (WH
 - External libraries for data parsing and visualization (CSV)
 
 ## Getting Started Steps
-- Obtained the data in CSV formatt and cleaned the data to make it more useful for our project.
-- Created a Table_Schema from the csv files using SQL.
+- Obtained the data in CSV format and cleaned the data to make it more useful for our project.
+- Created a Table_Schema from the data using SQL.
 - Created a database and called it through an API for the purpose of our analysis.
 - Created an index.html for our page and coded through Java.
 - Created visualizations for out data to tell the story we wanted to after creating insights.
+- Created a CSS styling page
 
 # Preview
 `Insert the dashboard preview`
