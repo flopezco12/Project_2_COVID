@@ -11,11 +11,13 @@ The data used in this project is obtained from the World Health Organization (WH
 - Provides statistics on cases, deaths, and vaccinations.
 - Visualizes data through charts and graphs.
 
-## Technologies Used
-- Java
+## Technologies  and Languagaes Used
+- JavaScripts
 - Python
 - SQL
-- External libraries for data parsing and visualization (CSS, Apache Commons CSV)
+- CSS
+- HTML
+- External libraries for data parsing and visualization (CSV)
 
 ## Getting Started Steps
 - Obtained the data in CSV formatt and cleaned the data to make it more useful for our project.
