@@ -26,8 +26,11 @@ The data used in this project is obtained from the World Health Organization (WH
 - Created an index.html for our page and coded through Java.
 - Created visualizations for out data to tell the story we wanted to after creating insights.
 
-# Usage
-Explore the generated charts to gain insights into COVID-19 trends.
+# Preview
+`Insert the dashboard preview`
+
+# Usage and comments
+`Explore the generated charts to gain insights into COVID-19 trends.`
 
 # Contributing
 Contributions are welcome! If you find any bugs or have suggestions for improvements, please open an issue or submit a pull request.
