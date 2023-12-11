@@ -5,7 +5,7 @@ This project was completed by group 5 members, Audrey Nkrumah, Anna Brabender, F
 ## Data Source
 The data used in this project is obtained from the World Health Organization (WHO) website, 'https://covid19.who.int/data',  providing comprehensive and up-to-date information on the global impact of the COVID-19 pandemic.
 
-## Features
+## Data Exploration
 - Fetches and parses COVID-19 data for all countries using API.
 - Analyzes trends and patterns in the spread of the virus.
 - Provides statistics on cases, deaths, and vaccinations.
