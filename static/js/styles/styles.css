@@ -59,4 +59,33 @@ h1 {
     margin-bottom: 30px;
 }
 
+#table {
+    width: 100%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#table th, #table td {
+    padding: 12px;
+    text-align: left;
+}
+
+#table th {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+#table tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+#table tbody tr:hover {
+    background-color: #e2e2e2;
+}
+
+/* Optional: Add a subtle border to the table */
+#table th, #table td {
+    border: 1px solid #dee2e6;
+}
 
