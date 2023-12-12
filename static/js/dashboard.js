@@ -12,7 +12,7 @@ const data_url = "http://127.0.0.1:5000/get_data";
 function init() {
     d3.json(data_url).then(function (data) {
         
-       
+       console.log("Chart3");
         let countries = data.VaccinationData.map(item => item[0]);
         let vaccination_rates = data.VaccinationData.map(item => item[4]);
         let seconddose = data.VaccinationData.map(item => item[5]);
@@ -22,6 +22,32 @@ function init() {
         console.log(data.DailyCasesDeath.map(item=> item[3]));
 
         console.log(data, countries, vaccination_rates);
+        let targetDate = "2023-11-22"
+    
+        let target = data.DailyCasesDeath[0][0]
+        let countrycase = {}
+        let countrycases = []
+        let countryforcase = []
+        let casesfinal = []
+        let i = 0
+        // countrycases[country]
+        data.DailyCasesDeath.forEach(function(d) {
+            if (d[0] === targetDate) {
+            countrycase["country"] = d[1] 
+            console.log(d[1])
+            console.log(d[3])
+            countrycase["casescount"] =d[3]
+            countrycases.push(countrycase)
+            countryforcase.push(d[1])
+            casesfinal.push(d[3])
+            i ++
+            countrycase = {}
+            } 
+            
+        })
+        console.log(countrycases);
+
+
 
         // Create the dropdown menu
         const dropdownContainer = document.getElementById('dropdown-container');
@@ -32,7 +58,7 @@ function init() {
             dropdown.onchange = function() {
                 updateChart(this.value);
                 updateChart2(this.value);
-                updateChart3(this.value);
+                // updateChart3(this.value);
             };
 
             // Add an option for all countries
@@ -97,8 +123,8 @@ function init() {
 
         //Create intial cases bar chart with all countries 
         const tracebar3 = {
-            x: countries,
-            y: cumulativecases,
+            x: countryforcase,
+            y: casesfinal,
             text: cumulativecases,
             type: "bar",
             marker: {color:'DarkCyan'}
@@ -175,35 +201,58 @@ function updateChart2(selectedCountry) {
         }
     });
 }
-
-// Function to update the bar2 chart based on the selected country
-function updateChart3(selectedCountry) {
-    d3.json(data_url).then(function (data) {
+// To be worked on at a future date to improve skills
+// // Function to update the bar2 chart based on the selected country
+// function updateChart3(selectedCountry) {
+//     d3.json(data_url).then(function (data) {
         
-        let countries = data.VaccinationData.map(item => item[0]);
-        let vaccination_rates = data.VaccinationData.map(item => item[5]);
-        let seconddose = data.VaccinationData.map(item => item[5]);
-        let cases = data.DailyCasesDeath.map(item=> item[3]);
-        console.log(data.DailyCasesDeath.map(item=> item[3]));
+//         let countries = data.VaccinationData.map(item => item[0]);
+//         let vaccination_rates = data.VaccinationData.map(item => item[5]);
+//         let seconddose = data.VaccinationData.map(item => item[5]);
+//         let cases = data.DailyCasesDeath.map(item=> item[3]);
+//         console.log(data.DailyCasesDeath.map(item=> item[3]));
+//         let targetDate = "2023-11-22"
+    
+//         let target = data.DailyCasesDeath[0][0]
+//         let countrycase = {}
+//         let countrycases = []
+//         let countryforcase = []
+//         let casesfinal = []
+//         let i = 0
+//         // countrycases[country]
+//         data.DailyCasesDeath.forEach(function(d) {
+//             if (d[0] === targetDate) {
+//             countrycase["country"] = d[1] 
+//             console.log(d[1])
+//             console.log(d[3])
+//             countrycase["casescount"] =d[3]
+//             countrycases.push(countrycase)
+//             countryforcase.push(d[1])
+//             casesfinal.push(d[3])
+//             i ++
+//             countrycase = {}
+//             } 
+            
+//         })
+        // console.log(countrycases);
         
-        
-        if (selectedCountry === 'all') {
-            // Show all countries
-            Plotly.update("line", {x: [countries], y: [cases]});
-        } else {
-            console.log(countries[selectedIndex]);
-            // Show only the selected country
-            const selectedIndex = countries.indexOf(selectedCountry);
-            const traceUpdate3 = {
-                x: [[countries[selectedIndex]]],
-                y: [[seconddose[selectedIndex]]],
-            };
+    //     if (selectedCountry === 'all') {
+    //         // Show all countries
+    //         Plotly.update("bar2", {x: [countryforcase], y: [casesfinal]});
+    //     } else {
+            
+    //         // Show only the selected country
+    //         const selectedIndex = countries.indexOf(selectedCountry);
+    //         const traceUpdate3 = {
+    //             x: [[countryforcase[selectedIndex]]],
+    //             y: [[casesfinal[selectedIndex]]],
+    //         };
             
             
-            Plotly.update("bar2", traceUpdate3);
-        }
-    });
-}
+    //         Plotly.update("bar2", traceUpdate3);
+    //     }
+    // });
+// }
 
 
 
