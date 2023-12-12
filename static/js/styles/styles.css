@@ -64,6 +64,7 @@ h1 {
     margin: 30px auto;
     border-collapse: collapse;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
 }
 
 #table th, #table td {
@@ -87,5 +88,10 @@ h1 {
 /* Optional: Add a subtle border to the table */
 #table th, #table td {
     border: 1px solid #dee2e6;
+}
+
+.btn-custom {
+    background-color: #008b8b; 
+    color: #ffffff; 
 }
 

@@ -19,6 +19,8 @@ function init() {
         
         const cumulativecases = data.DailyCasesDeath.map(item => item[3]);
 
+        console.log(data.DailyCasesDeath.map(item=> item[3]));
+
         console.log(data, countries, vaccination_rates);
 
         // Create the dropdown menu
@@ -182,12 +184,14 @@ function updateChart3(selectedCountry) {
         let vaccination_rates = data.VaccinationData.map(item => item[5]);
         let seconddose = data.VaccinationData.map(item => item[5]);
         let cases = data.DailyCasesDeath.map(item=> item[3]);
+        console.log(data.DailyCasesDeath.map(item=> item[3]));
+        
         
         if (selectedCountry === 'all') {
             // Show all countries
             Plotly.update("line", {x: [countries], y: [cases]});
         } else {
-            console.log(selectedCountry);
+            console.log(countries[selectedIndex]);
             // Show only the selected country
             const selectedIndex = countries.indexOf(selectedCountry);
             const traceUpdate3 = {

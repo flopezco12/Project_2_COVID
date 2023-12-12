@@ -29,7 +29,7 @@
         <div class="row">
           <div class="col-md-12 jumbotron text-center">
             <h1>COVID-19 Dashboard</h1>
-            <p>Use the interactive charts below to explore the dataset</p>
+            <p>Use the interactive charts below to explore the dataset. Use the toggle at the bottom of the page to view the known vaccines and parent companies</p>
           </div>
         </div>
     <div class="row">
@@ -71,52 +71,60 @@
     </div>
 
     
+<!-- Collapsible Vaccination Table Section -->
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTable" aria-expanded="false" aria-controls="collapseTable">
+            Vaccination Parent Company
+        </button>
+
+        <div class="collapse mt-3" id="collapseTable">
+            <div class="col-md-6">
+                <table 
+                    id="table"
+                    data-toggle="table"
+                    data-show-search="true"
+                    data-filter-control="true"
+                    data-filter-show-clear="true"
+                    data-data='[
+                        {"PRODUCT_NAME": "AZD1222", "Company_name": "AstraZeneca"},
+                        {"PRODUCT_NAME": "Ad26.COV 2-S", "Company_name": "Janssen Pharmaceuticals"},
+                        {"PRODUCT_NAME": "BBIBP-CorV", "Company_name": "Beijing Bio-Institute Biological Products (CNBG)"},
+                        {"PRODUCT_NAME": "CIGB-66", "Company_name": "Center for Genetic Engineering and Biotechnology"},
+                        {"PRODUCT_NAME": "Comirnaty", "Company_name": "Pfizer BioNTech"},
+                        {"PRODUCT_NAME": "Convidecia", "Company_name": "CanSino Biologicals"},
+                        {"PRODUCT_NAME": "Corbevax", "Company_name": "Biological E"},
+                        {"PRODUCT_NAME": "Coronavac", "Company_name": "Sinovac"},
+                        {"PRODUCT_NAME": "Covaxin", "Company_name": "Bharat Biotech"},
+                        {"PRODUCT_NAME": "Covi-Vac", "Company_name": "Chumakov"},
+                        {"PRODUCT_NAME": "Covidful", "Company_name": "Institute of Medical Biology"},
+                        {"PRODUCT_NAME": "Covishield", "Company_name": "Serum Institute of India"},
+                        {"PRODUCT_NAME": "EpiVacCorona", "Company_name": "State Research Center of Virology & Biotechnology"},
+                        {"PRODUCT_NAME": "Gam-Covid-Vac", "Company_name": "Gamaleya Research Institute"},
+                        {"PRODUCT_NAME": "Inactivated SARS-CoV-2 vaccine", "Company_name": "Wuhan Institute of Biological Products (CNBG)"},
+                        {"PRODUCT_NAME": "LV-SMENP-DC", "Company_name": "Shenzhen GenoImmune Medical Institute"},
+                        {"PRODUCT_NAME": "NUVAXOVID", "Company_name": "Novavax"},
+                        {"PRODUCT_NAME": "QazVac", "Company_name": "Research Institute for Biological Safety Problems"},
+                        {"PRODUCT_NAME": "Soberana Plus", "Company_name": "Instituto Finlay de Vacunas"},
+                        {"PRODUCT_NAME": "Soberana-02", "Company_name": "Instituto Finlay de Vacunas"},
+                        {"PRODUCT_NAME": "Spikevax", "Company_name": "Moderna"},
+                        {"PRODUCT_NAME": "Sputnik-Light", "Company_name": "Gamaleya Research Institute"},
+                        {"PRODUCT_NAME": "VLA2001", "Company_name": "Valneva"},
+                        {"PRODUCT_NAME": "Vaxzevria", "Company_name": "AstraZeneca"},
+                        {"PRODUCT_NAME": "Zifivax", "Company_name": "Anhui Zhifei Longcom Biopharmaceutical"},
+                        {"PRODUCT_NAME": "ZyCov-D", "Company_name": "Zydus Cadila"},
+                        {"PRODUCT_NAME": "mRNA-1273", "Company_name": "Moderna"}
+                    ]'>
+                    <thead>
+                        <tr>
+                            <th data-field="PRODUCT_NAME">Product Name</th>
+                            <th data-field="Company_name">Company Name</th>
+                        </tr>
+                    </thead>
+    
+                </table>
 
     
-<table 
-    id="table"
-    data-toggle="table"
-    data-show-search="true"
-    data-filter-control="true"
-    data-filter-show-clear="true"
-    data-data='[
-        {"PRODUCT_NAME": "AZD1222", "Company_name": "AstraZeneca"},
-        {"PRODUCT_NAME": "Ad26.COV 2-S", "Company_name": "Janssen Pharmaceuticals"},
-        {"PRODUCT_NAME": "BBIBP-CorV", "Company_name": "Beijing Bio-Institute Biological Products (CNBG)"},
-        {"PRODUCT_NAME": "CIGB-66", "Company_name": "Center for Genetic Engineering and Biotechnology"},
-        {"PRODUCT_NAME": "Comirnaty", "Company_name": "Pfizer BioNTech"},
-        {"PRODUCT_NAME": "Convidecia", "Company_name": "CanSino Biologicals"},
-        {"PRODUCT_NAME": "Corbevax", "Company_name": "Biological E"},
-        {"PRODUCT_NAME": "Coronavac", "Company_name": "Sinovac"},
-        {"PRODUCT_NAME": "Covaxin", "Company_name": "Bharat Biotech"},
-        {"PRODUCT_NAME": "Covi-Vac", "Company_name": "Chumakov"},
-        {"PRODUCT_NAME": "Covidful", "Company_name": "Institute of Medical Biology"},
-        {"PRODUCT_NAME": "Covishield", "Company_name": "Serum Institute of India"},
-        {"PRODUCT_NAME": "EpiVacCorona", "Company_name": "State Research Center of Virology & Biotechnology"},
-        {"PRODUCT_NAME": "Gam-Covid-Vac", "Company_name": "Gamaleya Research Institute"},
-        {"PRODUCT_NAME": "Inactivated SARS-CoV-2 vaccine", "Company_name": "Wuhan Institute of Biological Products (CNBG)"},
-        {"PRODUCT_NAME": "LV-SMENP-DC", "Company_name": "Shenzhen GenoImmune Medical Institute"},
-        {"PRODUCT_NAME": "NUVAXOVID", "Company_name": "Novavax"},
-        {"PRODUCT_NAME": "QazVac", "Company_name": "Research Institute for Biological Safety Problems"},
-        {"PRODUCT_NAME": "Soberana Plus", "Company_name": "Instituto Finlay de Vacunas"},
-        {"PRODUCT_NAME": "Soberana-02", "Company_name": "Instituto Finlay de Vacunas"},
-        {"PRODUCT_NAME": "Spikevax", "Company_name": "Moderna"},
-        {"PRODUCT_NAME": "Sputnik-Light", "Company_name": "Gamaleya Research Institute"},
-        {"PRODUCT_NAME": "VLA2001", "Company_name": "Valneva"},
-        {"PRODUCT_NAME": "Vaxzevria", "Company_name": "AstraZeneca"},
-        {"PRODUCT_NAME": "Zifivax", "Company_name": "Anhui Zhifei Longcom Biopharmaceutical"},
-        {"PRODUCT_NAME": "ZyCov-D", "Company_name": "Zydus Cadila"},
-        {"PRODUCT_NAME": "mRNA-1273", "Company_name": "Moderna"}
-    ]'>
-    <thead>
-        <tr>
-            <th data-field="PRODUCT_NAME">Product Name</th>
-            <th data-field="Company_name">Company Name</th>
-        </tr>
-    </thead>
-</table>
-
-    
-   
+</div>  
 </body>
 </html>
