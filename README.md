@@ -2,6 +2,8 @@
 ## Overview
 This project was completed by group 5 members, Audrey Nkrumah, Anna Brabender, Fernando Lopez, and Saiyara Islam. It aims to analyze COVID-19 data from the World Health Organization (WHO) website for the years 2020 to 2023 on a daily basis. The project fetches and processes data on COVID-19 cases, deaths, and vaccinations for all countries worldwide.
 
+Link to presentation: https://docs.google.com/presentation/d/1Dk-4a90tT7HOd71kjCpOx2WWYRl6LZnyzv4h6Zqj5nA/edit?usp=sharing
+
 ## Data Source
 The data used in this project is obtained from the World Health Organization (WHO) website, 'https://covid19.who.int/data',  providing comprehensive and up-to-date information on the global impact of the COVID-19 pandemic.
 
