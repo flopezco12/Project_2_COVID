@@ -13,7 +13,7 @@ The data used in this project is obtained from the World Health Organization (WH
 - Provides statistics on cases, deaths, and vaccinations.
 - Visualizes data through charts and graphs.
 
-## Technologies  and Languagaes Used
+## Technologies and Languages Used
 - ETL
 - JavaScripts
 - Python
@@ -31,7 +31,8 @@ The data used in this project is obtained from the World Health Organization (WH
 - Created a CSS styling page
 
 # Preview
-`Insert the dashboard preview`
+![db](https://github.com/flopezco12/Project_3_COVID/assets/139662888/54d6fdf2-264d-4d33-a4aa-d6b7440fbbc5)
+
 
 # Usage and comments
 `Explore the generated charts to gain insights into COVID-19 trends.`
